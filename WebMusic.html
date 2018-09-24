@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-hans">
 <head>
     <meta charset="UTF-8">
     <meta name="referrer" content="never">
     <!--百度API设置问题，所以需要加上这个meta-->
-    <title>WebMusic</title>
+    <title>Break音乐播放器</title>
     <link rel="stylesheet" href="./css/common.css">
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_664268_hqxnvhfj62yb9.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css">
@@ -124,7 +124,7 @@
               })
               _this.$leftBtn.click(function(){
                   if(_this.isAnimate) return
-                  var itemWidth = _this.$box.find('li').outerWidth(true)
+                  var itemWidth =_this.$box.find('li').outerWidth(true)
                   var rowCount=Math.floor(_this.$box.width()/itemWidth)
                   if(!_this.isToStart){
                       _this.isAnimate = true
@@ -150,14 +150,12 @@
           render:function(){
               var _this= this
               $.getJSON('https://jirenguapi.applinzi.com/fm/getChannels.php').done(function(ret){
-                  console.log(ret)
                   _this.renderFooter(ret.channels)
               }).fail(function(){
                   console.log('error')
               })
           },
           renderFooter:function(channels){
-              console.log(channels)
               var html = ''
               channels.forEach(function(channel){
                   html += '<li data-channel-id=' + channel.channel_id+' data-channel-name='+channel.name+'>'
@@ -193,6 +191,7 @@
                   _this.loadMusic()
               })
               this.$container.find('.btn-play').on('click',function(){
+
                   var $btn = $(this)
                   if($btn.hasClass('icon-play')){
                       $btn.removeClass('icon-play').addClass('icon-pause')
@@ -226,7 +225,6 @@
           loadLyric(){
               var _this = this
               $.getJSON('https://jirenguapi.applinzi.com/fm/getLyric.php',{sid:this.song.sid}).done(function(ret){
-                  console.log(ret)
                   var lyric = ret.lyric
                   var lyricObj = {}
                   lyric.split('\n').forEach(function(line){
@@ -266,7 +264,6 @@
 
       $.fn.boomText = function(type){
           type =  type || 'rollIn'
-
           this.html(function(){
               var arr= $(this).text().split('').map(function(word){
                   return '<span class="boomText">' + word+'</span>'
